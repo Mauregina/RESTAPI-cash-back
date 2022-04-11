@@ -4,28 +4,26 @@ class SaleModel(banco.Model):
     __tablename__ = 'sales'
 
     sale_id = banco.Column(banco.Integer, primary_key=True)
+    sold_at = banco.Column(banco.String(20))
     total = banco.Column(banco.Float(precision=2))
-    type = banco.Column(banco.String(1))
-    value = banco.Column(banco.Float(precision=2))
-    qty = banco.Column(banco.Integer)
+    products = banco.relationship('ProductModel')
+
     #document = banco.Column(banco.Integer, banco.ForeignKey('customers.document'))
 
-    def __init__(self, total, type, value, qty):
+    def __init__(self, sold_at, total):
+        self.sold_at = sold_at
         self.total = total
-        self.type =type
-        self.value = value
-        self.qty = qty
 
     def json(self):
         return {
             'sale_id': self.sale_id,
+            'sold_at': self.sold_at,
             'total': self.total,
-            'type': self.type,
-            'value': self.value,
-            'qty': self.qty           
+            'products': [product.json() for product in self.products]          
         }
 
     def save_sale(self):
         banco.session.add(self)
+        banco.session.flush()
         banco.session.commit()
 
