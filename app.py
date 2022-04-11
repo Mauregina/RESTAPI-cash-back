@@ -1,6 +1,6 @@
-from flask import Flask, jsonify
+from flask import Flask
 from flask_restful import Api
-from resources.customer import Customer, Customers
+from resources.customer import Customers
 from resources.sale import Sales, Sale
 
 
@@ -14,7 +14,6 @@ def cria_banco():
     banco.create_all()    
 
 api.add_resource(Customers, '/customers')
-api.add_resource(Customer, '/customer/<int:document>')
 api.add_resource(Sales, '/sales')
 api.add_resource(Sale, '/api/cashback')
 
