@@ -69,10 +69,18 @@ class Sale(Resource):
 
             cashback_obj = CashbackModel(total, sale_id)
             cashback_obj.save_cashback()
+
+            cashback_value = cashback_obj.cashback_value
+            
+            api_response = CashbackModel.send_cashback_maistodos(document, cashback_value)
+
+            if api_response:
+                cashback_obj.cashback_sent = True
+                cashback_obj.api_response = str(api_response)
+                cashback_obj.save_cashback()
  
         except ValueError:
             return {'message': 'An internal error occurred trying to register cash back. {}'.format(ValueError)}, 500
 
         return {'message': 'Cashback registered successfully!'}, 201 # created
 
-        

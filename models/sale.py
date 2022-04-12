@@ -37,6 +37,14 @@ class SaleModel(banco.Model):
         except:    
             return False
 
+    @classmethod
+    def find_sale(cls, sale_id):
+        sale = cls.query.filter_by(sale_id=sale_id).first()
+
+        if sale:
+            return sale   
+        return None   
+
     def save_sale(self):
         banco.session.add(self)
         banco.session.flush()
