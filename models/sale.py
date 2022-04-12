@@ -30,7 +30,6 @@ class SaleModel(banco.Model):
         date_format = '%Y-%m-%d %H:%M:%S'    
         try:
             date_obj = datetime.datetime.strptime(date, date_format)
-            print(date_obj)
             return True
         except:    
             return False
@@ -38,5 +37,3 @@ class SaleModel(banco.Model):
     def save_sale(self):
         banco.session.add(self)
         banco.session.flush()
-        #banco.session.commit()
-

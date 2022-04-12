@@ -1,6 +1,3 @@
-from inspect import Attribute
-
-from pkg_resources import require
 from flask_restful import Resource, reqparse
 from models.sale import SaleModel
 from models.product import ProductModel
@@ -12,10 +9,10 @@ class Sales(Resource):
 
 class Sale(Resource):
     attributes = reqparse.RequestParser()
-    attributes.add_argument('sold_at', type=str, required=True, help="The field 'sold_at' might be informed.") 
-    attributes.add_argument('customer', type=dict, required=True, help="The field 'customer' might be informed.")
-    attributes.add_argument('total', type=str, required=True, help="The field 'total' might be informed.")  
-    attributes.add_argument('products', type=dict, action='append', required=True, help="The field 'products' might be informed.")
+    attributes.add_argument('sold_at', type=str, required=True, help="The field 'sold_at' must be informed.") 
+    attributes.add_argument('customer', type=dict, required=True, help="The field 'customer' must be informed.")
+    attributes.add_argument('total', type=float, required=True, help="The field 'total' must be informed.")  
+    attributes.add_argument('products', type=dict, action='append', required=True, help="The field 'products' must be informed.")
 
     def post(self):
         dados = Sale.attributes.parse_args()
@@ -26,12 +23,17 @@ class Sale(Resource):
 
         try:     
             document = customer_dict.get('document')
+            if not CustomerModel.valid_document(document):
+                return {'message': "The 'document' must be valid"}, 400 # bad request 
+
+            name = customer_dict.get('name')
+            if not CustomerModel.valid_name(name):
+                return {'message': "The 'name' must be valid"}, 400 # bad request                 
+
             customer = CustomerModel.find_customer(document)
             if customer:
                 customer_id = customer.customer_id
-            else:
-                if not CustomerModel.valid_document(document):
-                    return {'message': "The 'document' must be valid"}, 400 # bad request    
+            else:  
                 customer_obj = CustomerModel(**customer_dict)
                 customer_obj.save_customer()
                 customer_id = customer_obj.customer_id
@@ -42,11 +44,33 @@ class Sale(Resource):
             sale_obj = SaleModel(customer_id, sold_at, total)
             sale_obj.save_sale()
             
+            ProductModel.zero_sum_total_product()
             for product in products_lst:
-               product_obj = ProductModel(sale_obj.sale_id, **product)
-               product_obj.save_product()
+                type = product.get('type')
+                if not ProductModel.valid_type(type):
+                    return {'message': "The 'product type' must be 'A', 'B' or 'C'"}, 400 # bad request
+
+                value = product.get('value')
+                if not ProductModel.valid_value(value):
+                    return {'message': "The 'value' must be valid"}, 400 # bad request 
+
+                qty = product.get('qty')
+                if not ProductModel.valid_qty(qty):
+                    return {'message': "The 'qty' must be valid"}, 400 # bad request                     
+
+                product_obj = ProductModel(sale_obj.sale_id, **product)
+                product_obj.save_product()
+
+            if not ProductModel.valid_sum_total_product(total):
+                return {'message': "The 'total' must be equal to the sum of products {}"\
+                    .format(ProductModel.sum_total_product)}, 400 # bad request            
+
+            cash_back = ProductModel.calc_cash_back(products_lst)
+            print(cash_back)
+
+            product_obj.commit_product()    
         except ValueError:
-            return {'message': 'An internal error occurred trying to save sale. {}'.format(ValueError)}, 500
+            return {'message': 'An internal error occurred trying to register cash back. {}'.format(ValueError)}, 500
 
         return {'message': 'Cashback registered successfully!'}, 201 # created
 

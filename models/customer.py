@@ -39,6 +39,12 @@ class CustomerModel(banco.Model):
         return True
 
     @classmethod
+    def valid_name(cls, name: str)->bool:
+        if not name:
+            return False
+        return True              
+
+    @classmethod
     def find_customer(cls, document):
         customer = cls.query.filter_by(document=document).first()
 
@@ -49,4 +55,3 @@ class CustomerModel(banco.Model):
     def save_customer(self):
         banco.session.add(self)
         banco.session.flush()
-        #banco.session.commit()
