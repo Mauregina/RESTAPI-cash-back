@@ -10,8 +10,8 @@ class CashbackModel(banco.Model):
     cashback_sent = banco.Column(banco.Boolean)
     api_response = banco.Column(banco.String(500))
 
-    def __init__(self, cashback_value, sale_id):
-        self.cashback_value = cashback_value
+    def __init__(self, total, sale_id):
+        self.cashback_value = self.calc_cashback(total)
         self.sale_id = sale_id
         self.cashback_sent = False
 
@@ -22,7 +22,12 @@ class CashbackModel(banco.Model):
             'sale_id': self.sale_id,
             'cashback_sent': self.cashback_sent,  
             'api_response': self.api_response     
-        }            
+        }  
+
+    def calc_cashback(self, total):
+        total_float = float(total)
+        cashback = total_float*0.1
+        return "{:.2f}".format(cashback)          
 
     @classmethod
     def find_cashback(cls, cashback_id):
