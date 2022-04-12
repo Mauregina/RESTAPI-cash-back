@@ -1,0 +1,168 @@
+{
+	"info": {
+		"_postman_id": "fcaf4611-e85e-487b-a188-d90a5b83dff9",
+		"name": "RESTAPI_DigitalWallet",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/customers",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:5000/customers",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/cashback",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:5000/cashback",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"cashback"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/sales",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:5000/sales",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"sales"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/cashback",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"sold_at\": \"2022-04-11 00:00:00\",\r\n    \"customer\": {\r\n        \"document\": \"90646460234\",\r\n        \"name\": \"Maura Regina Almeida da Costa\"\r\n    },\r\n    \"total\": \"560.55\",\r\n    \"products\": [\r\n        {\r\n            \"type\": \"B\",\r\n            \"value\": \"250.00\",\r\n            \"qty\": 2\r\n        },\r\n        {\r\n            \"type\": \"C\",\r\n            \"value\": \"60.55\",\r\n            \"qty\": 1\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/cashback",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"cashback"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/apimaistodos",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://5efb30ac80d8170016f7613d.mockapi.io/api/mock/Cashback",
+					"protocol": "https",
+					"host": [
+						"5efb30ac80d8170016f7613d",
+						"mockapi",
+						"io"
+					],
+					"path": [
+						"api",
+						"mock",
+						"Cashback"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
