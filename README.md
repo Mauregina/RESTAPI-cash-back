@@ -102,3 +102,14 @@ Retorno da api:
   "cashback": "10"
 }
 ```
+
+## Ferramentas utilizadas na solução
+
+* Visual Studio SCode
+* Python 3.9.10
+* Flask
+* SQLite
+* Postman
+```sh
+pip install -r requirements.txt 
+```
