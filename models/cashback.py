@@ -5,10 +5,10 @@ class CashbackModel(banco.Model):
     __tablename__ = 'cachbacks'
 
     cashback_id = banco.Column(banco.Integer, primary_key=True)
-    cashback_value = banco.Column(banco.Float(precision=2))
-    sale_id = banco.Column(banco.Integer, banco.ForeignKey('sales.sale_id'))   
-    cashback_sent = banco.Column(banco.Boolean)
+    cashback_value = banco.Column(banco.Float(precision=2), nullable=False)
+    cashback_sent = banco.Column(banco.Boolean, nullable=False)
     api_response = banco.Column(banco.String(500))
+    sale_id = banco.Column(banco.Integer, banco.ForeignKey('sales.sale_id'), nullable=False)   
 
     def __init__(self, total, sale_id):
         self.cashback_value = self.calc_cashback(total)
@@ -28,14 +28,6 @@ class CashbackModel(banco.Model):
         total_float = float(total)
         cashback = total_float*0.1
         return "{:.2f}".format(cashback)          
-
-    @classmethod
-    def find_cashback(cls, cashback_id):
-        cashback = cls.query.filter_by(cashback_id=cashback_id).first()
-
-        if cashback:
-            return cashback   
-        return None
 
     @classmethod
     def send_cashback_maistodos(cls, document, cashback_value):

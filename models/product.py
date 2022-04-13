@@ -4,10 +4,10 @@ class ProductModel(banco.Model):
     __tablename__ = 'products'
 
     product_id = banco.Column(banco.Integer, primary_key=True)
-    type = banco.Column(banco.String(1))
-    value = banco.Column(banco.Float(precision=2))
-    qty = banco.Column(banco.Integer)
-    sale_id = banco.Column(banco.Integer, banco.ForeignKey('sales.sale_id'))
+    type = banco.Column(banco.String(1), nullable=False)
+    value = banco.Column(banco.Float(precision=2), nullable=False)
+    qty = banco.Column(banco.Integer, nullable=False)
+    sale_id = banco.Column(banco.Integer, banco.ForeignKey('sales.sale_id'), nullable=False)
 
     def __init__(self, sale_id, type, value, qty):
         self.sale_id = sale_id

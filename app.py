@@ -1,8 +1,6 @@
 from flask import Flask
 from flask_restful import Api
-from resources.customer import Customers
 from resources.sale import Sales, Sale
-from resources.cashback import Cashback
 
 
 app = Flask(__name__)
@@ -14,9 +12,7 @@ api = Api(app)
 def cria_banco():
     banco.create_all()    
 
-api.add_resource(Customers, '/customers')
 api.add_resource(Sales, '/sales')
-api.add_resource(Cashback, '/cashback')
 api.add_resource(Sale, '/api/cashback')
 
 if __name__ == '__main__':

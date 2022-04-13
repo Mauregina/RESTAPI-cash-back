@@ -70,9 +70,7 @@ class Sale(Resource):
             cashback_obj = CashbackModel(total, sale_id)
             cashback_obj.save_cashback()
 
-            cashback_value = cashback_obj.cashback_value
-            
-            api_response = CashbackModel.send_cashback_maistodos(document, cashback_value)
+            api_response = CashbackModel.send_cashback_maistodos(document, cashback_obj.cashback_value)
 
             if api_response:
                 cashback_obj.cashback_sent = True

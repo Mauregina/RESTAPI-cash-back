@@ -5,8 +5,8 @@ class CustomerModel(banco.Model):
     __tablename__ = 'customers'
 
     customer_id = banco.Column(banco.Integer, primary_key=True)
-    document = banco.Column(banco.String(11))
-    name = banco.Column(banco.String(100))
+    document = banco.Column(banco.String(11), nullable=False)
+    name = banco.Column(banco.String(100), nullable=False)
 
     def __init__(self, document, name):
         self.document = document
