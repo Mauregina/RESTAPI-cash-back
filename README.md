@@ -22,9 +22,9 @@ POST /api/cashback
        {
           "type": "B",
           "value": "10.00",
-          "qty": 9,
+          "qty": 9
        }
-    ],
+    ]
 }
 ```
 
