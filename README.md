@@ -63,7 +63,10 @@ Retorno da API:
 * Python 3.9.10
 * Flask
 * SQLAlchemy
+* SQLite
 * Postman
 ```sh
 pip install -r requirements.txt 
 ```
+
+## 
