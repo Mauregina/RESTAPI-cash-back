@@ -1,5 +1,5 @@
-## Carteira Digital
-1. API recebe, valida e salva dados da compra, bem como calcula o valor do cash back.
+## Cash Back
+1. API receives, validates and saves purchase data, as well as calculates the cash back value.
 
 ```
 POST /api/cashback 
@@ -28,22 +28,22 @@ POST /api/cashback
 }
 ```
 
-Onde:
-- customer -> document: é o cpf do cliente
-- products -> type: é a classificação do produto, você irá definir os valores mas podemos usar (A, B, C)
-- products -> value: é o valor unitário do produto
-- products -> qty: é a quantidade de cada produto
+where:
+- customer -> document: client unique id
+- products -> type: product type
+- products -> value: product unit value
+- products -> qty: product quantity
 
-5 - Repassa o valor do cashback para uma API da MaisTODOS.
+5 - Pass the cashback amount to an API of MaisTODOS company.
 
 ```
 URL: https://5efb30ac80d8170016f7613d.mockapi.io/api/mock/Cashback
 Método: POST
-Data: document -> Cpf do cliente
-      cashback -> valor calculado
+Data: document -> client unique id
+      cashback -> calculated value
 ```
 
-Retorno da API:
+API return:
 
 ```json
 {
@@ -55,10 +55,10 @@ Retorno da API:
 }
 ```
 
-## Modelo Lógico
+## Logic Model
 <p align="center"> <img src=/logic_model/logic_model.png alt="model" class="center"></p>
 
-## Ferramentas utilizadas na solução
+## Tools, libraries, etc.
 * Visual Studio SCode
 * Python 3.9.10
 * Flask
