@@ -34,7 +34,7 @@ where:
 - products -> value: product unit value
 - products -> qty: product quantity
 
-5 - Pass the cashback amount to an API of MaisTODOS company.
+2. Pass the cashback amount to an API of MaisTODOS company.
 
 ```
 URL: https://5efb30ac80d8170016f7613d.mockapi.io/api/mock/Cashback
